@@ -12,6 +12,9 @@
 /build
 /dist
 
+# development
+/.vscode
+
 # misc
 .DS_Store
 .env.local
