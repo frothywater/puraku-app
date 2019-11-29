@@ -1,6 +1,10 @@
 {
   "name": "puraku-app",
   "version": "0.1.0",
+  "description": "A modern collector and organizer for post-consumerism (otaku).",
+  "author": {
+    "name": "frothywater"
+  },
   "private": true,
   "dependencies": {
     "react": "^16.12.0",
@@ -8,10 +12,14 @@
     "react-scripts": "3.2.0"
   },
   "scripts": {
+    "dev": "nf start",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "pack": "electron-builder --dir -c.extraMetadata.main=build/electron-starter.js",
+    "dist": "electron-builder",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron": "electron ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -26,6 +34,33 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^7.1.2",
+    "electron-builder": "^21.2.0",
+    "foreman": "^3.0.1",
+    "typescript": "^3.7.2"
+  },
+  "main": "public/electron-starter.js",
+  "homepage": "./",
+  "build": {
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ]
+  },
+  "prettier": {
+    "overrides": [
+      {
+        "files": [
+          "*.js",
+          "*.ts"
+        ],
+        "options": {
+          "tabWidth": 4
+        }
+      }
     ]
   }
 }
