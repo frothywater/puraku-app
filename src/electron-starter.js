@@ -9,7 +9,7 @@ const url = require("url");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+let mainWindow, authWindow;
 
 function createWindow() {
     // Create the browser window.
@@ -19,6 +19,13 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: true
         }
+    });
+
+    // Create Twitter authentication window.
+    authWindow = new BrowserWindow({
+        width: 600,
+        height: 400,
+        show: false
     });
 
     const startUrl =
@@ -67,3 +74,31 @@ app.on("activate", function() {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+// const backend = require("../src/backend");
+// backend.listen();
+
+const { ipcMain } = require("electron");
+const { TwitterProvider, Settings } = require("puraku");
+
+let twitter;
+
+ipcMain.on("login-twitter", async event => {
+    console.log("!");
+    await Settings.applySettings();
+    twitter = new TwitterProvider();
+    await twitter.init();
+    const authUrl = twitter.getLoginRedirectUrl();
+
+    authWindow.loadURL(authUrl);
+    authWindow.show();
+    authWindow.webContents.on("will-navigate", async (event, callbakUrl) => {
+        const verifier = url.parse(callbakUrl, true).query["oauth_verifier"];
+        await twitter.login(verifier);
+        authWindow.close();
+    });
+
+    authWindow.on("closed", function() {
+        authWindow = null;
+    });
+});

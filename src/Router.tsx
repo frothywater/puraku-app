@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
-import FavoritesPage from "./FavoritesPage";
+import FavoritesPage from "./components/FavoritesPage";
 import Theme from "./Theme";
 
 export default class Router extends Component {
