@@ -14,21 +14,19 @@
     "@types/react-dom": "^16.9.4",
     "@types/react-router-dom": "^5.1.3",
     "electron-better-ipc": "^0.7.0",
-    "puraku": "^0.1.2",
+    "puraku": "file:puraku",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0"
   },
   "scripts": {
-    "dev": "nf start",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "pack": "electron-builder --dir -c.extraMetadata.main=build/electron-starter.js",
+    "pack": "electron-builder --dir -c.extraMetadata.main=build/main.js",
     "dist": "electron-builder",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron": "electron ."
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,7 +46,6 @@
   "devDependencies": {
     "electron": "^7.1.2",
     "electron-builder": "^21.2.0",
-    "foreman": "^3.0.1",
     "typescript": "^3.7.2"
   },
   "main": "src/electron-starter.js",

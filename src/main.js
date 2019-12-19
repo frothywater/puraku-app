@@ -53,7 +53,13 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on("ready", createWindow);
+app.on("ready", () => {
+    createWindow();
+
+    const backend = require("./ipc");
+    backend.setWindow("authWindow", authWindow);
+    backend.listen();
+});
 
 // Quit when all windows are closed.
 app.on("window-all-closed", function() {
@@ -74,31 +80,3 @@ app.on("activate", function() {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-
-// const backend = require("../src/backend");
-// backend.listen();
-
-const { ipcMain } = require("electron");
-const { TwitterProvider, Settings } = require("puraku");
-
-let twitter;
-
-ipcMain.on("login-twitter", async event => {
-    console.log("!");
-    await Settings.applySettings();
-    twitter = new TwitterProvider();
-    await twitter.init();
-    const authUrl = twitter.getLoginRedirectUrl();
-
-    authWindow.loadURL(authUrl);
-    authWindow.show();
-    authWindow.webContents.on("will-navigate", async (event, callbakUrl) => {
-        const verifier = url.parse(callbakUrl, true).query["oauth_verifier"];
-        await twitter.login(verifier);
-        authWindow.close();
-    });
-
-    authWindow.on("closed", function() {
-        authWindow = null;
-    });
-});
