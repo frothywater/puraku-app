@@ -30,6 +30,7 @@ module.exports.listen = function () {
         });
     });
     electron_1.ipcMain.on("get-favorites", async (event) => {
+        await puraku_1.Settings.applySettings();
         const favList = twitter.addList({ action: "getMyFavorites" });
         await favList.init();
         await favList.update();

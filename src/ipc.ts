@@ -38,7 +38,9 @@ module.exports.listen = function() {
         });
     });
 
-    ipcMain.on("get-favorites", async ecent => {
+    ipcMain.on("get-favorites", async event => {
+        await Settings.applySettings();
+
         const favList = twitter.addList({ action: "getMyFavorites" });
         await favList.init();
         await favList.update();

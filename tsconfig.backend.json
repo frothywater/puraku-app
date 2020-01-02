@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "esNext",
+    "module": "commonjs",
+    "outDir": "puraku/lib",
+    "declaration": true,
+    "sourceMap": true
+  },
+  "include": ["puraku/src"]
+}

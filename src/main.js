@@ -14,8 +14,8 @@ let mainWindow, authWindow;
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 1200,
-        height: 700,
+        width: 1000,
+        height: 600,
         webPreferences: {
             nodeIntegration: true
         }
@@ -39,7 +39,7 @@ function createWindow() {
     mainWindow.loadURL(startUrl);
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on("closed", function() {
